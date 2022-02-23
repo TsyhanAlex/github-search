@@ -1,4 +1,10 @@
 export type GetGithubDataResponse = {
+    incomplete_results: boolean;
+    items: GithubDataResponseItems[];
+    total_count: number;
+}
+
+export type GithubDataResponseItems = {
     id: number,
     node_id: string,
     name: string,
