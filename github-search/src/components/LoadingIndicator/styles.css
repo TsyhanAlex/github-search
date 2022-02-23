@@ -1,0 +1,6 @@
+.LoadingIndicator{
+    margin: auto;
+    background: rgb(255, 255, 255);
+    display: block;
+    shape-rendering: auto;
+}
