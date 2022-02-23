@@ -5,7 +5,7 @@ export class GithubApi {
      * Method to get main data
      * @returns an object with the main info of a repository
      */
-    static async getGithubData(searchParam: string): Promise<GetGithubDataResponse> {
+    static async getGithubData(searchParam: string): Promise<GetGithubDataResponse[]> {
         const url = `https://api.github.com/search/repositories?q=${searchParam}`;
 
         const response = await fetch(url, {
