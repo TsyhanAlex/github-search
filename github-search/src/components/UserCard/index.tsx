@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useState} from "react";
 import {GithubDataResponseItems} from "../../api/GetGithubDataResponse";
 import './styles.css';
+import {UserInfoPage} from "../UserInfoPage";
 
 export type Props = {
     user: GithubDataResponseItems
@@ -8,13 +9,12 @@ export type Props = {
 
 export function UserCard(props: Props): JSX.Element {
 
-    function onUserCardClicked(): void {
-        window.location.href=`/card/${props.user.owner.id}`;
-    }
+    const [isModalWindowOpen, setIsModalWindowOpen] = useState<boolean>(false);
 
     return (
         <div className="card">
-            <div className={"card-image"} onClick={onUserCardClicked}>
+            <UserInfoPage user={props.user} open={isModalWindowOpen} onClose={() => setIsModalWindowOpen(false)}/>
+            <div className={"card-image"} onClick={() => setIsModalWindowOpen(true)}>
                 <img className={'UserImage'} src={props.user.owner.avatar_url} alt={'a github user image'}/>
                 <span className="card-title">${props.user.owner.login}</span>
             </div>
