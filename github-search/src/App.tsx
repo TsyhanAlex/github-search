@@ -1,10 +1,9 @@
 import React from 'react';
-import {Layout} from "./components/Layout";
+import {Layout} from './components/Layout/Layout';
 
-function App() {
+export function App() {
   return (
       <Layout/>
   );
 }
 
-export default App;

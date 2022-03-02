@@ -1,4 +1,19 @@
-.ListItem {
+.ListItem, .ListItemLink {
     margin-right: 10px;
     margin-left: 15px;
+}
+
+.ListItemLink {
+    cursor: pointer;
+}
+
+.ListItemLink:hover {
+    color: blue;
+}
+
+.PieChart {
+    display: block;
+    margin: 0 auto;
+    width: 260px;
+    height: 260px;
 }

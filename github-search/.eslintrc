@@ -1,0 +1,37 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["import", "@typescript-eslint", "react", "jest"],
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "react-app",
+    "prettier"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaVersion": 2018,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "rules": {
+    "@typescript-eslint/indent": "off",
+    "@typescript-eslint/interface-name-prefix": 0,
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/no-var-requires": 0,
+    "@typescript-eslint/no-explicit-any":  ["warn", { "ignoreRestArgs": false }],
+    "import/no-default-export": "warn",
+    "react/self-closing-comp": "warn",
+    "jsx-a11y/anchor-is-valid": 0,
+    "jest/no-disabled-tests": "warn",
+    "jest/no-focused-tests": "error",
+    "jest/no-identical-title": "error",
+    "jest/prefer-to-have-length": "warn",
+    "jest/valid-expect": "error"
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}
