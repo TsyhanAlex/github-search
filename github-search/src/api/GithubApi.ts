@@ -1,4 +1,4 @@
-import {GetGithubDataResponse} from "./GetGithubDataResponse";
+import {GetGithubDataResponse} from './GetGithubDataResponse';
 
 export class GithubApi {
     /**

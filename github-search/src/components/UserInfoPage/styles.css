@@ -1,4 +1,12 @@
-.ListItem {
+.ListItem, .ListItemLink {
     margin-right: 10px;
     margin-left: 15px;
+}
+
+.ListItemLink {
+    cursor: pointer;
+}
+
+.ListItemLink:hover {
+    color: blue;
 }
