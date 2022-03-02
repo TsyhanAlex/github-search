@@ -5,6 +5,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
 import {GithubDataResponseItems} from '../../redux/types/GetGithubDataResponse';
 import './styles.css';
+import { IssuesInfo } from "../IssuesInfo/IssuesInfo";
 
 export interface Props {
     user: GithubDataResponseItems;
@@ -22,8 +23,9 @@ export function UserInfoPage(props: Props): JSX.Element {
         <ListItemText key={props.user?.description} className={'ListItem'}  primary={`Description: ${props.user?.description}`} />
         <ListItemText key={props.user?.forks_count} className={'ListItem'}  primary={`Forks count: ${props.user?.forks_count}`} />
         <ListItemText key={props.user?.stargazers_count} className={'ListItem'}  primary={`Stargazers count: ${props.user?.stargazers_count}`} />
-        <ListItemText key={props.user?.open_issues_count} className={'ListItem'}  primary={`Open issues: ${props.user?.open_issues_count}`} />
+        <ListItemText key={props.user?.open_issues_count} className={'ListItemLink'}  primary={`Open issues: ${props.user?.open_issues_count}`} onClick={() => window.open(`${props.user?.url}/issues`, '_blank')}/>
         <ListItemText key={props.user?.watchers_count} className={'ListItem'}  primary={`Watchers count: ${props.user?.watchers_count}`} />
+        <IssuesInfo fullName={props.user.full_name} />
       </List>
     </Dialog>
   );

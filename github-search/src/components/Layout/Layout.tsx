@@ -17,11 +17,11 @@ export function Layout(): JSX.Element {
 
     function onInputChanged(searchText: string): void {
         setSearchParam(searchText);
-        setIsSubmittedSearchParam(false)
+        setIsSubmittedSearchParam(false);
     }
 
     function onSubmitBtnClicked(): void {
-        setIsSubmittedSearchParam(true)
+        setIsSubmittedSearchParam(true);
     }
 
     return (
