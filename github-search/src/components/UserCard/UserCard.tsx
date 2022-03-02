@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {GithubDataResponseItems} from '../../api/GetGithubDataResponse';
+import {GithubDataResponseItems} from '../../redux/types/GetGithubDataResponse';
 import './styles.css';
 import {UserInfoPage} from '../UserInfoPage/UserInfoPage';
 

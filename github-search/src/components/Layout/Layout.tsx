@@ -1,52 +1,43 @@
-import React, { useCallback, useState } from 'react';
+import React, { useState } from 'react';
 import {Button, Container, Grid} from '@mui/material';
+import { useGetUserQuery } from '../../redux';
 import {Header} from '../Header/Header';
-import {GithubApi} from '../../api/GithubApi';
-import {GithubDataResponseItems} from '../../api/GetGithubDataResponse';
-import './styles.css';
+import {GithubDataResponseItems} from '../../redux/types/GetGithubDataResponse';
 import { InputSearch } from '../InputSearch/InputSearch';
 import { LoadingIndicator } from '../LoadingIndicator/LoadingIndicator';
 import { UserCard } from '../UserCard/UserCard';
+import './styles.css';
 
 export function Layout(): JSX.Element {
 
-    const [isDataLoading, setIsDataLoading] = useState<boolean>(false);
-    const [isErrorLoading, setIsErrorLoading] = useState<boolean>(false);
-    const [errorMessage, setErrorMessage] = useState<string>('');
-    const [githubResponse, setGithubResponse] = useState<GithubDataResponseItems[] | null>(null);
     const [searchParam, setSearchParam] = useState<string>('');
+    const [isSubmittedSearchParam, setIsSubmittedSearchParam] = useState<boolean>(false);
 
-    const onSubmitBtnClicked = useCallback(() => {
-        if (!searchParam.trim()) {
-            return;
-        }
+    const {data, isLoading, error} = useGetUserQuery(searchParam, { skip: !isSubmittedSearchParam });
 
-        setIsDataLoading(true);
-        GithubApi.getGithubData(searchParam.trim())
-          .then((res) => {
-              setGithubResponse(res.items);
-          })
-          .catch((error) => {
-              setIsErrorLoading(true);
-              setErrorMessage(error?.message);
-          })
-          .finally(() => setIsDataLoading(false));
-    }, [searchParam]);
+    function onInputChanged(searchText: string): void {
+        setSearchParam(searchText);
+        setIsSubmittedSearchParam(false)
+    }
+
+    function onSubmitBtnClicked(): void {
+        setIsSubmittedSearchParam(true)
+    }
 
     return (
         <Container className={'Container'}>
             <div className="App">
                 <Header onLabelClick={() => window.location.href='/'} />
                 <div className={'SearchBlock'}>
-                    <InputSearch canDisplayLabel={!searchParam.trim()} onInputChange={setSearchParam} onEnterClicked={onSubmitBtnClicked}/>
+                    <InputSearch canDisplayLabel={!searchParam.trim()} onInputChange={onInputChanged} onEnterClicked={onSubmitBtnClicked}/>
                     <Button className={'SubmitBtn'} onClick={onSubmitBtnClicked}>Submit</Button>
                 </div>
-                {isDataLoading && <LoadingIndicator/>}
-                {isErrorLoading && !isDataLoading && <div>{`Something gone wrong! ${errorMessage}`}</div>}
-                {!isErrorLoading && !isDataLoading && !githubResponse?.length && (<h3>Let's start searching or changing the search value</h3>)}
-                {!isErrorLoading && !isDataLoading && (
+                {isLoading && <LoadingIndicator/>}
+                {error && !isLoading && <div>Something gone wrong!</div>}
+                {!error && !isLoading && !data?.items?.length && (<h3>Let's start searching or changing the search value</h3>)}
+                {!error && !isLoading && (
                     <Grid container spacing={2}>
-                        {githubResponse ? githubResponse.map(item => <Grid key={item.id} item xs={3}><UserCard user={item}/></Grid>) : null}
+                        {data?.items ? data?.items.map((item: GithubDataResponseItems) => <Grid key={item.url} item xs={3}><UserCard key={item.id} user={item}/></Grid>) : null}
                     </Grid>
                 )}
             </div>

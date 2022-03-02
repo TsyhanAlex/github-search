@@ -3,7 +3,7 @@ import List from '@mui/material/List';
 import ListItemText from '@mui/material/ListItemText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Dialog from '@mui/material/Dialog';
-import {GithubDataResponseItems} from '../../api/GetGithubDataResponse';
+import {GithubDataResponseItems} from '../../redux/types/GetGithubDataResponse';
 import './styles.css';
 
 export interface Props {
