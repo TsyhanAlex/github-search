@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from "react";
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
 import { PieChart } from 'react-minimal-pie-chart';
 import ListItemText from '@mui/material/ListItemText';
 import List from '@mui/material/List';
 import { useGetClosedIssuesQuery, useGetOpenIssuesQuery } from '../../redux';
 import { LoadingIndicator } from '../LoadingIndicator/LoadingIndicator';
+import './styles.css';
 
 export interface Props {
   fullName: string,
@@ -18,13 +19,15 @@ export function IssuesInfo(props: Props): JSX.Element {
   const isLoading = isOpenIssuesLoading || isClosedIssuesLoading;
   const isError = isOpenIssuesError || isClosedIssuesError;
 
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
   return (
     <Accordion>
       <AccordionSummary
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography>More info about issues</Typography>
+        <Typography className={'AccordionTitle'} onClick={() => setIsOpen(!isOpen)}>Click to see {isOpen ? 'less' : 'more'} info about issues</Typography>
       </AccordionSummary>
       {isLoading && (
         <LoadingIndicator />
@@ -38,7 +41,7 @@ export function IssuesInfo(props: Props): JSX.Element {
             <ListItemText primary={`Total open issues: ${openIssuesData?.total_count}`} />
             <ListItemText primary={`Total closed issues: ${closedIssuesData?.total_count}`} />
           </List>
-          {!!openIssuesData?.total_count || !!closedIssuesData?.total_count && (
+          {!!openIssuesData?.total_count && (
             <PieChart
               className={"PieChart"}
               data={[
